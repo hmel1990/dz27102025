@@ -1,0 +1,8 @@
+cd E:\STEP\Python\DZ\DZ_26.10.2025
+git init
+git add .
+git commit -m "Firs commit"
+gh repo create RepoName --public --source="." --remote=origin --push
+
+
+cd E:\STEP\Python\DZ\DZ_26.10.2025; git init; git add .; git commit -m "First commit"; gh repo create RepoName --public --source="." --remote=origin --push

@@ -131,3 +131,60 @@ def update_data_view(request: HttpRequest):
         return JsonResponse({"error": "Invalid JSON"}, status=400)
     data_dict.update(payload)
     return JsonResponse({"status": "updated", "data": data_dict})
+
+
+
+# ============================================================================================
+task_template_list= [
+        {
+            "title": "Утренняя пробежка",
+            "time": "07:00",
+            "completed": True,
+            "category": "Здоровье"
+        },
+        {
+            "title": "Совещание с командой",
+            "time": "10:00",
+            "completed": False,
+            "category": "Работа"
+        },
+        {
+            "title": "Обед с клиентом",
+            "time": "13:00",
+            "completed": False,
+            "category": "Встречи"
+        },
+        {
+            "title": "Написание отчета",
+            "time": "15:30",
+            "completed": False,
+            "category": "Работа"
+        },
+        {
+            "title": "Чтение книги",
+            "time": "20:00",
+            "completed": False,
+            "category": "Личное развитие"
+        },
+    ]
+def template_tasklist(request):
+    data = {}
+    data["task_list"] = task_template_list
+    return render(request, "index.html", context=data)
+
+def grouped_template_tasklist(request):
+    grouped_tasks = {}
+    for task in task_template_list:
+        category = task["category"]
+        if category not in grouped_tasks:
+            grouped_tasks[category] = []
+        grouped_tasks[category].append(task)
+
+    sorted_grouped_tasks = sorted(grouped_tasks.items(), key=lambda item: item[0])
+
+    return render(request, "tasklist.html", {"grouped_tasks": sorted_grouped_tasks})
+
+
+
+
+

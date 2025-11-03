@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template task-list</title>
+    <style>
+            .completed {
+                text-decoration: line-through;
+            }
+            .pending {
+                text-decoration: underline;
+            }
+    </style>
+
+</head>
+<body>
+     {% if task_list|length < 1 %}
+    <h2>На сегодня задач нет</h2>
+{% else %}
+    <ol>
+        {% for task in task_list %}
+            {% if task.completed %}
+                {% with class_name="completed" %}
+                    <li class="{{ class_name }}" style="color:{% cycle 'red' 'green' 'blue' %}">{{ task.title }}</li>
+                {% endwith %}
+            {% else %}
+                {% with class_name="pending" %}
+                    <li class="{{ class_name }}" style="color:{% cycle 'red' 'green' 'blue' %}">{{ task.title }}</li>
+                {% endwith %}
+            {% endif %}
+        {% endfor %}
+    </ol>
+{% endif %}
+
+
+
+</body>
+</html>
